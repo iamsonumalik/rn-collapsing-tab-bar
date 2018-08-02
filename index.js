@@ -34,9 +34,10 @@ const ScrollableTabView = createReactClass({
 	// 	page: PropTypes.number,
 	// 	onChangeTab: PropTypes.func,
 	// 	onScroll: PropTypes.func,
-	//	onContinerScroll: PropTypes.func,
+	//	onContainerScroll: PropTypes.func,
 	// 	renderTabBar: PropTypes.any,
 	// 	style: ViewPropTypes.style,
+	// 	tabBarStyle: ViewPropTypes.style,
 	// 	contentProps: PropTypes.object,
 	// 	scrollWithoutAnimation: PropTypes.bool,
 	// 	locked: PropTypes.bool,
@@ -51,7 +52,7 @@ const ScrollableTabView = createReactClass({
 			page: -1,
 			onChangeTab: () => { },
 			onScroll: () => { },
-            		onContinerScroll: () => { },
+			onContainerScroll: () => { },
 			contentProps: {},
 			scrollWithoutAnimation: false,
 			locked: false,
@@ -267,6 +268,10 @@ const ScrollableTabView = createReactClass({
 			containerWidth: this.state.containerWidth
 		};
 
+		if(this.props.tabBarStyle){
+			tabBarProps.style = this.props.tabBarStyle
+		}
+
 		if (this.props.tabBarBackgroundColor) {
 			tabBarProps.backgroundColor = this.props.tabBarBackgroundColor;
 		}
@@ -305,7 +310,7 @@ const ScrollableTabView = createReactClass({
 			ref={contentView => { this.contentView = contentView; }}
 			onMomentumScrollEnd={event => { this.contentScrollDistance = event.nativeEvent.contentOffset.y; }}
 			onScroll={({ nativeEvent }) => {
-				this.props.onContinerScroll(nativeEvent)
+				this.props.onContainerScroll(nativeEvent)
 				if (isCloseToBottom(nativeEvent)) {
 					if (this.props.loadMore) {
 						this.props.loadMore();
